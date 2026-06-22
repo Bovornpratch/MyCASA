@@ -208,11 +208,17 @@ class ImageMS:
         self.inp_ms=self.cfg_dict['input_ms']
         self.ms_name=os.path.basename(self.inp_ms.split('.ms')[0])
 
-        self.field_list=self.cfg_dict['field_list']
+        self.field_list=self.fetch_field_list()
         self.image_par=self.cfg_dict['image_par']
         
     def fetch_field_list(self):
-        pass
+        if isinstance(self.cfg_dict['field'], list):
+            fout=self.cfg_dict['field']  
+        elif isinstance(self.cfg_dict['field'], str):
+            fout=[self.cfg_dict['field']]
+        else:
+            raise AssertionError('Unknown field format')
+        return fout
         
     def RunImaging(self):
         
